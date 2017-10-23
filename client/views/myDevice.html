@@ -1,0 +1,66 @@
+<a  href="#" class="button-collapse btn" data-activates="nav-mobile" data-sidenav="left" data-menuwidth="300" data-closeonclick="false">Menu</a>
+<ul id="nav-mobile" class="side-nav collection">	
+	<ul class="noStyle">
+		<li><a href="/" ng-click='overlay()'>Home</a></li>
+		<li><a href="#!/users" ng-click='overlay()'>Users</a></li>
+		<li> <a ng-click="show2()" data-activates="nav-mobile">Boitiers</a>
+			<ul ng-if="usr">
+			    <li ng-repeat="n in Devices">
+			        <a class="menu_int" ng-click='overlay()' data-activates="nav-mobile" href="#!/boitier/{{n._id}}">{{n.name}}</a>
+			    </li>
+			</ul>
+		</li>
+	</ul>
+</ul>
+
+<br>
+
+<i ng-click='event()' class="material-icons">event</i>
+<i ng-click='light()' class="material-icons">flare</i>
+<i ng-click='chart()' class="material-icons">insert_chart</i>
+
+<br>
+<div class="myDevice" id="myDevice">
+	Mon objet est : <br>
+	<hr>
+	<span>Identifiant : </span> {{myDevice.id}} <br>
+	<span>Nom : </span> {{myDevice.name}} <br>
+	<hr>
+	<!-- <span>Dernière Applicatn :</span> {{myDevice.last_app}} <br> -->
+	<span>Dernière adresse IP : </span> {{myDevice.last_ip_address}} <br>
+	<hr>
+	<span>Id produit : </span> {{myDevice.product_id}} <br>
+	<span>Id plateforme : </span> {{myDevice.platform_id}} <br>
+	<hr>
+	<span>Connecté ? : </span> {{myDevice.connected}} <br>
+	<span>Cellular : </span> {{myDevice.cellular}} <br>
+	<span>Status : </span> {{myDevice.status}} <br>
+	<span>Notes : </span> {{myDevice.notes}} <br>
+	<hr>
+	<span>Dernière utilisation :</span> {{myDevice.last_heard|dateFr}} <br>
+<!-- 	<span>Build courant :</span> {{myDevice.current_build_target}}<br>
+	<span>Build par défaut :</span> {{myDevice.default_build_target}}<br> -->
+</div>
+
+<div ng-if="visibilityEvent">
+	{{errorEvent}}
+	<ul class="collection">
+		<li ng-repeat='event in myDeviceEvent' class="collection-item">
+			{{event.name}} : (<i>{{event._id}}</i>)<br>
+			Publie le : {{event.published|dateFr}} <br>
+			Data : {{event.data}}
+		</li>
+	</ul>
+</div>
+
+<div ng-if="visibilityChart">
+	<canvas id="line" class="chart chart-line" chart-data="data"
+	chart-labels="labels" chart-series="series" chart-options="options"
+	chart-dataset-override="datasetOverride" chart-click="onClick">
+	</canvas><br>
+	{{errorChart}}
+</div>
+
+<div ng-if="visibilityLight">
+	{{switchLight}}
+</div>

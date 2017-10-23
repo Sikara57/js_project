@@ -1,4 +1,4 @@
-var app = angular.module("myApp",['ngRoute','ngResource','ui.materialize','ngLodash']);
+var app = angular.module("myApp",['ngRoute','ngResource','angularMoment','ui.materialize','ngLodash']);
 
 app.config(['$routeProvider','$locationProvider',
 	function($routeProvider,$locationProvider){
@@ -27,11 +27,31 @@ app.config(['$routeProvider','$locationProvider',
 			})
 			.when('/boitier',{
 				templateUrl:'client/views/boitier.html',
-				controller:'boitier.ctrl'
+				controller:'boitier.ctrl',
+				resolve:{
+					liste:function(deviceFactory){
+						return deviceFactory.query();
+					}
+				}
+			})
+			.when('/boitier/:id',{
+				templateUrl:'client/views/myDevice.html',
+				controller:'myDevice.ctrl',
+				resolve:{
+					liste:function(deviceFactory){
+						return deviceFactory.query();
+					}
+				}
 			})
 			.otherwise({
 				redirectTo:'/'
 			})
+}]);
+
+app.filter('dateFr',['moment',function(moment){
+	return function(date){
+		return moment().format('LLL');
+	}
 }]);
 
 app.config(['$resourceProvider',function($resourceProvider){

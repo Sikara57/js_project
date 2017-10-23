@@ -2,7 +2,7 @@
 <a href="#" class="button-collapse btn" data-activates="nav-mobile" data-sidenav="left" data-menuwidth="300" data-closeonclick="false">Menu</a>
 <ul id="nav-mobile" class="side-nav collection">	
 	<ul class="noStyle">
-		<li><a href="/">Home</a></li>
+		<li><a href="/" ng-click='overlay()'>Home</a></li>
 		<li> <a ng-click="show2()" data-activates="nav-mobile">Users</a>
 			<ul ng-if="usr">
 			    <li ng-repeat="n in myUsers">
@@ -10,7 +10,7 @@
 			    </li>
 			</ul>
 		</li>
-		<li><a href="#!/boitier">Boîtier</a></li>
+		<li><a href="#!/boitier" ng-click='overlay()'>Boîtier</a></li>
 	</ul>
 </ul>
 

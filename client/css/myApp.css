@@ -48,3 +48,19 @@ a, a:visited, a:link
 	margin-top:20px;
 	margin-bottom: 20px;
 }
+
+div.myDevice
+{
+	padding:20px;
+	border:1px solid #cdcdcd;
+}
+
+div.myDevice span
+{
+	display: inline-block;
+	width: 170px;
+	background-color: #e0e0e0;
+	padding: 2px 0 2px 4px;
+	border-radius: 10px;
+	margin-bottom: 10px;
+}

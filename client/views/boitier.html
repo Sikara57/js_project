@@ -1,18 +1,23 @@
-
-
-<a href="#" class="button-collapse" data-activates="nav-mobile" data-sidenav="left" data-menuwidth="300" data-closeonclick="true">Menu</a>
+<a  href="#" class="button-collapse btn" data-activates="nav-mobile" data-sidenav="left" data-menuwidth="300" data-closeonclick="false">Menu</a>
 <ul id="nav-mobile" class="side-nav collection">	
 	<ul class="noStyle">
-		<li><a href="/">Home</a></li>
-		<li><a href="#!/users">User</a></li>
-		<li>
-			<ul class="collapsible" data-collapsible="accordion" watch>
-			    <li ng-repeat="single in collapsibleElements">
-			        <div class="collapsible-header"><i class="{{single.icon}}"></i>{{single.title}}</div>
-			        <div class="collapsible-body"><p>{{single.content}}</p></div>
+		<li><a href="/" ng-click='overlay()'>Home</a></li>
+		<li><a href="#!/users" ng-click='overlay()'>Users</a></li>
+		<li> <a ng-click="show2()" data-activates="nav-mobile">Boitiers</a>
+			<ul ng-if="usr">
+			    <li ng-repeat="n in Devices">
+			        <a class="menu_int" ng-click='overlay()' data-activates="nav-mobile" href="#!/boitier/{{n._id}}">{{n.name}}</a>
 			    </li>
 			</ul>
 		</li>
 	</ul>
+</ul>
+
+
+<ul class="collection">
+	<a ng-href="#!/boitier/{{n._id}}" ng-repeat='n in Devices' class="collection-item"><li> 
+		{{n.name}}
+		<i class="right">Last Update : {{n.last_heard|dateFr}}</i>
+	</li></a> 
 </ul>
 
