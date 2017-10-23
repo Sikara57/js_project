@@ -1,4 +1,4 @@
-var app = angular.module("myApp",['ngRoute','ngResource','ui.materialize']);
+var app = angular.module("myApp",['ngRoute','ngResource','ui.materialize','ngLodash']);
 
 app.config(['$routeProvider','$locationProvider',
 	function($routeProvider,$locationProvider){
@@ -18,7 +18,12 @@ app.config(['$routeProvider','$locationProvider',
 			})
 			.when('/users/:id',{
 				templateUrl:'client/views/user.html',
-				controller:'user.ctrl'
+				controller:'user.ctrl',
+				resolve:{
+					users:function(userFactory){
+						return userFactory.query();
+					}
+				}
 			})
 			.when('/boitier',{
 				templateUrl:'client/views/boitier.html',

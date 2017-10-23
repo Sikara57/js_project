@@ -63,12 +63,12 @@ app.post('/users',function(req,res){
 			return res.send(500);
 		}else{
 			console.log(success);
-			res.send(success);
+			io.emit('userCreate',success);
 		}
 	});
 });
 
-app.delete('/api/liste/:id', function(req, res) {
+app.delete('/users/:id', function(req, res) {
     console.log(req.body);
     User.findByIdAndRemove(req.params.id,function(err, response){
         if(err){
@@ -85,7 +85,7 @@ app.delete('/api/liste/:id', function(req, res) {
 });
 
 // exemple de rendu html / jade
-app.put('/api/liste/:id', function(req, res) {
+app.put('/users/:id', function(req, res) {
     console.log(req.params);
     console.log(req.body);
     // console.log(req.params.id);
@@ -93,7 +93,8 @@ app.put('/api/liste/:id', function(req, res) {
     User.findByIdAndUpdate(req.params.id,req.body, { new: true }, function (err, updateUser) {
       if (err) return handleError(err);
       console.log(updateUser);
-      res.status(200).send(updateUser);
+      io.sockets.emit('userUpdate',updateUser);
+      res.status(200);
     });
 
 });

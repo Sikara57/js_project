@@ -1,12 +1,12 @@
 <div>
-	<a  href="#" class="button-collapse" data-activates="nav-mobile" data-sidenav="left" data-menuwidth="300" data-closeonclick="false">Menu</a>
+	<a  href="#" class="button-collapse btn" data-activates="nav-mobile" data-sidenav="left" data-menuwidth="300" data-closeonclick="false">Menu</a>
 	<ul id="nav-mobile" class="side-nav collection">	
 		<ul class="noStyle">
 			<li><a href="/">Home</a></li>
-			<li> <a ng-click="show2()">Test</a>
+			<li> <a ng-click="show2()" data-activates="nav-mobile">Users</a>
 				<ul ng-if="usr">
 				    <li ng-repeat="n in myUsers">
-				        {{n.nom}}
+				        <a class="menu_int" ng-click='overlay()' data-activates="nav-mobile" href="#!/users/{{n._id}}">{{n.nom}} {{n.prenom}}</a>
 				    </li>
 				</ul>
 			</li>
@@ -20,8 +20,8 @@
         <li ng-repeat="n in myUsers" class="collection-item">
             {{n.nom}}&nbsp;{{n.prenom}}
             <i class="material-icons right" ng-click="deleteUser(n,$index)">close</i>
-            <i data-target='new' class="material-icons right" modal ng-click="updateUser(n)">edit</i>
-            <a  ng-href="#!/user/{{n._id}}" ><i class="material-icons right">account_circle</i></a>
+            <i class="material-icons right" ng-click="updateUser(n)">edit</i>
+            <a  ng-href="#!/users/{{n._id}}" ><i class="material-icons right">account_circle</i></a>
             
         </li>
     </ul>
@@ -36,5 +36,5 @@
         <input type="text" name="prenom" id="prenom" ng-model="person.prenom"><label for="prenom">Prénom</label>
         <input type="email" name="contact_mail" id="contact_mail" ng-model="person.mail"><label for="mail">Contact Mail</label>
     </form>
-    <div class="sub"><button class="btn modal-close" ng-click="ajoutUser(person,parametre.ajout)">Envoyer</button></div>
+    <div class="sub"><button class="btn" ng-click="ajoutUser(person,parametre.ajout)">Envoyer</button></div>
 </div>

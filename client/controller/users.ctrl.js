@@ -1,52 +1,72 @@
-app.controller('users.ctrl',function($scope,users,userFactory){
+app.controller('users.ctrl',function($scope,users,userFactory,lodash){
 	$scope.myUsers = users;
 	$scope.expanded = false;
 	$scope.usr = false;
 	$scope.person = {};
-	var monTableau = [];
 
-	users.forEach(function(element){
-		monTableau.push('element.nom');
-	});
-
+	var socket = io.connect('http://localhost:3000');
 
    $scope.ajoutUser = function(user,mode){
         if(mode==1)
         {
             console.log('Ajout');
             console.log(user);
-            $scope.myUsers.push($scope.person);
-            // console.log(eleve);
             userFactory.save({user});
-            $scope.collapsibleElements[0].content.push($scope.person);
             $scope.person = {};
-            $scope.expanded = false;
+            $scope.show();
         }
         else
         {
             console.log('edit');
             // $scope.maListe.push($scope.person);
-            console.log(eleve._id);
-            useractory.update({userId:user._id},user);
-            $scope.person={};
+            console.log(user._id);
+            userFactory.update({userId:user._id},user);
+            $scope.show();
         }
 
     };
 
-    $scope.deleteEleve = function(eleve,index){
+    socket.on("userCreate",function(socket){
+
+          $scope.myUsers.push(socket);
+          $scope.$apply();
+   	});
+
+    socket.on("userUpdate",function(socket){
+          // console.log(socket);
+          // console.log($scope.myUsers);
+          var index = lodash.findIndex($scope.myUsers, function(o) { return o._id == socket._id; });
+          // var index = $scope.maliste.indexOf(socket);
+          // console.log(index);
+          $scope.myUsers.splice(index, 1,socket);
+          $scope.$apply();
+          $scope.show();
+   	});
+
+
+    $scope.deleteUser = function(user,index){
         // console.log(eleve);
-        eleveFactory.delete({userId:eleve._id});
+        userFactory.delete({userId:user._id});
         //permet de supprimer aussi l'affichage
-        $scope.maListe.splice(index,1);
+        $scope.show();
     };
 
+    socket.on("userDelete",function(socket){
+          // console.log(socket);
+          // console.log($scope.myUsers);
+          var index = lodash.findIndex($scope.myUsers, function(o) { return o._id == socket._id; });
+          // var index = $scope.maliste.indexOf(socket);
+          // console.log(index);
+          $scope.myUsers.splice(index, 1);
+          $scope.$apply();
+   	});
     // Avec socket.io on fait un $scope.splice puis un $scope.$apply()
 
-    $scope.updateEleve = function (eleve)
+    $scope.updateUser = function (usr)
     {
-        $scope.parametre.ajout=0;
-        // console.log(eleve._id);
-        $scope.person=eleve;
+    	$scope.show();
+    	$scope.parametre.ajout=0;
+        $scope.person=usr;
     }
 
  	$scope.show = function()
@@ -62,4 +82,11 @@ app.controller('users.ctrl',function($scope,users,userFactory){
  		$scope.person = {};
 
  	}
+
+  $scope.overlay = function()
+  {
+    var element = angular.element('#sidenav-overlay');
+    element.remove();
+  }
+
 });

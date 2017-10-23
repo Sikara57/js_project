@@ -3,6 +3,11 @@
 	margin-left:25px;
 }
 
+.side-nav li > a.menu_int
+{
+	padding-left:50px;
+}
+
 .container
 {
 	margin:auto;
@@ -10,14 +15,14 @@
 }
 
 
-div.user
+div.profil
 {
     padding:20px;
     border: 1px solid #e0e0e0;
 }
 
 
-div.user span
+div.profil span
 {
     display: inline-block;
     width:107px;
@@ -31,4 +36,15 @@ div.user span
 {
     width:100px;
     margin:auto;
+}
+
+a, a:visited, a:link
+{
+    color:inherit;
+}
+
+.button-collapse
+{
+	margin-top:20px;
+	margin-bottom: 20px;
 }
