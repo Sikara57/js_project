@@ -2,9 +2,25 @@
 <html lang="fr">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Accueil</title>
+
+	<link rel="stylesheet" href="bower_components/materialize/dist/css/materialize.css">
+	<link rel="stylesheet" href="client/css/myApp.css">
+
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
+	<script type="text/javascript" src="node_modules/angular-route/angular-route.min.js"></script>
+	<script type="text/javascript" src="node_modules/angular-resource/angular-resource.min.js"></script>
+	<script type="text/javascript" src="bower_components/materialize/dist/js/materialize.min.js"></script>
+	<script type="text/javascript" src="node_modules/angular-materialize/src/angular-materialize.min.js"></script>
+	<script type="text/javascript" src="node_modules/socket.io-client/dist/socket.io.js"></script>
+
 </head>
 <body>
-	prout
+	<div ng-app="myApp">
+		<div ng-view></div>
+	</div>
+	<script src="/client/myApp.js"></script>
+	<script src="/client/controller/home.ctrl.js"></script>
 </body>
 </html>

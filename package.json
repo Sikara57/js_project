@@ -12,6 +12,7 @@
   "author": "Daniel GIRARD",
   "license": "ISC",
   "dependencies": {
+    "angular": "1.6.4",
     "angular-materialize": "^0.2.2",
     "angular-resource": "^1.6.6",
     "angular-route": "^1.6.6",
