@@ -1,0 +1,25 @@
+{
+  "name": "projet",
+  "description": "projet evaluation js",
+  "main": "index.js",
+  "authors": [
+    "Daniel GIRARD"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "js;node;angular"
+  ],
+  "homepage": "index.html",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "materialize": "^0.100.2"
+  }
+}
