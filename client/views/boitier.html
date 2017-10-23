@@ -1,0 +1,18 @@
+
+
+<a href="#" class="button-collapse" data-activates="nav-mobile" data-sidenav="left" data-menuwidth="300" data-closeonclick="true">Menu</a>
+<ul id="nav-mobile" class="side-nav collection">	
+	<ul class="noStyle">
+		<li><a href="/">Home</a></li>
+		<li><a href="#!/users">User</a></li>
+		<li>
+			<ul class="collapsible" data-collapsible="accordion" watch>
+			    <li ng-repeat="single in collapsibleElements">
+			        <div class="collapsible-header"><i class="{{single.icon}}"></i>{{single.title}}</div>
+			        <div class="collapsible-body"><p>{{single.content}}</p></div>
+			    </li>
+			</ul>
+		</li>
+	</ul>
+</ul>
+

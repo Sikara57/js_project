@@ -1,3 +1,3 @@
-app.controller('home.ctrl',function(){
+app.controller('home.ctrl',function($scope){
 
 });

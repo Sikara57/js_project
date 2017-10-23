@@ -1,0 +1,29 @@
+<div class="container">
+
+	<a href="#" class="button-collapse" data-activates="nav-mobile" data-sidenav="left" data-menuwidth="300" data-closeonclick="true">Menu</a>
+	<ul id="nav-mobile" class="side-nav collection">	
+		<ul class="noStyle">
+			<li><a href="/">Home</a></li>
+			<li>
+				<ul class="collapsible" data-collapsible="accordion" watch>
+				    <li ng-repeat="single in collapsibleElements">
+				        <div class="collapsible-header"><i class="{{single.icon}}"></i>{{single.title}}</div>
+				        <div class="collapsible-body"><p>{{single.content}}</p></div>
+				    </li>
+				</ul>
+			</li>
+			<li><a href="#!/boitier">User</a></li>
+		</ul>
+	</ul>
+
+	<br>
+	Bienvenue dans la section Utilisateur. <br>
+	<div class="user">
+	    Mon Utilisateur est :<br>
+	    <hr>
+	    <span> Nom :</span> {{monProfil.nom}} <br>
+	    <span> Prénom :</span> {{monProfil.prenom}} <br>
+		<hr>
+	    <span> Mail :</span>  {{monProfil.contact_mail}}
+	</div>
+</div>
