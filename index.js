@@ -1,4 +1,5 @@
 var Particle = require('particle-api-js');
+var TwitterStream = require('twitter-stream-api');
 var express = require('express');
 var bodyParser = require('body-parser');
 
@@ -6,6 +7,7 @@ var mongoose = require('mongoose');
 var User = require('./models/user.js');;
 var Devices = require('./models/device.js');
 var EventsObj = require('./models/eventObj.js');
+var Tweet = require('./models/tweet.js');
 
 var app = express();
 var server = require('http').createServer(app);
@@ -17,6 +19,8 @@ var promise=mongoose.connect('mongodb://localhost:27017/js',{
 
 var particle = new Particle();
 var token;
+
+var compteur = 0;
 
 var myDevice = '190036001047343438323536';
 
@@ -39,6 +43,9 @@ app.get('/',function(req,res){
 	res.sendFile(__dirname + '/client/index.html');
 });
 
+/* --------------------------------------------------------------------------------------- */
+/* -------------------------------------- USERS ------------------------------------------ */
+/* --------------------------------------------------------------------------------------- */
 
 app.get('/users',function(req,res){
 	User.find({},function(err,collection){
@@ -187,8 +194,11 @@ particle.login({username:'sikara57@gmail.com',password:'zfgp64s3*'}).then(
                     if(err){
                         console.log('Add event Error ' + err);
                     }else{
+
+                        compteur = 0;
                         console.log('Intensity Chart Value added');
                         io.emit('Intensity',success);
+                        
                     }
                 });
               // console.log("Event: " + JSON.stringify(data));
@@ -264,8 +274,6 @@ app.get('/event',function(req,res){
     });
 });
 
-
-
 app.post('/boitier', function(req,res){
     var myPhoto = particle.getVariable({ deviceId: myDevice, name: 'analogvalue', auth: token });
     
@@ -276,4 +284,81 @@ app.post('/boitier', function(req,res){
         function(err) {
             console.log('An error occurred while getting attrs:', err);
     });
+});
+
+
+/* --------------------------------------------------------------------------------------- */
+/* -------------------------------------- TWEET ------------------------------------------ */
+/* --------------------------------------------------------------------------------------- */
+
+var keys =
+{
+    consumer_key : 'hHlBiAOFrbQQp9tExo46Oo38R',
+    consumer_secret : 'WLLPgyyvROyqA4Q9wEmfjRvprRitQRfOUEulOgzJbmsgOZd8h8',
+    token : '16624254-v2JLajXsgcUtvf6GzVPGCo2Ti7HFl7UTROmNYFzxK',
+    token_secret : 'ZfqMtLmikoo2VAWy3k6f3GFcJPTgRJLtXiYEeeBbIBSQO'
+};
+
+
+var Twitter = new TwitterStream(keys,false);
+
+Twitter.stream('statuses/filter',{
+    track : 'javascript'
+});
+
+Twitter.on('connection success',function(uri){
+    console.log('connection success',uri);
+});
+
+Twitter.on('connection aborted', function(){
+    console.log('connection aborted');
+});
+
+Twitter.on('connection error network',function(err){
+    console.log('connection error network',err);
+})
+
+Twitter.on('data',function(obj){
+    var objet = JSON.parse(obj);
+    var newTweet = new Tweet({
+        'tweet_creation' : objet.created_at,
+        'tweet_text' : objet.text,
+        'user_name' : objet.user.name,
+        'user_location' : objet.user.location
+    });
+
+    var location = newTweet.user_location;
+
+    // console.log(location);
+    var res = '';
+
+
+    if(/France/.test(location) || /United/.test(location) || /England/.test(location))
+    {
+        res = location;
+    }
+
+    if(res)
+    {
+        // console.log('yes');
+        var fnPr = particle.callFunction({ deviceId: myDevice, name: 'newTweet', argument: 'hi', auth: token });
+ 
+        fnPr.then(
+            function(data) {
+                console.log('Function called succesfully');
+                newTweet.save(function(err,success){
+                    if(err){
+                        console.log('Add Event Error ' + err);
+                    }else{
+                        console.log('Added Tweet');
+                        io.emit('newTweet',newTweet);
+                    }
+                });   
+
+            }, function(err) {
+                var erro = 'error';
+                console.log('An error occurred');
+                res.send(error);
+        });
+    }
 });

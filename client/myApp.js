@@ -1,4 +1,4 @@
-var app = angular.module("myApp",['ngRoute','ngResource','angularMoment','ui.materialize','ngLodash']);
+var app = angular.module("myApp",['ngRoute','ngResource','angularMoment','ui.materialize','ngLodash',"chart.js"]);
 
 app.config(['$routeProvider','$locationProvider',
 	function($routeProvider,$locationProvider){

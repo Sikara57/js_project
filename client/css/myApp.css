@@ -64,3 +64,9 @@ div.myDevice span
 	border-radius: 10px;
 	margin-bottom: 10px;
 }
+
+.eventBlock
+{
+	height :400px;
+	overflow: scroll;
+}

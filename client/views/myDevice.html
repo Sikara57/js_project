@@ -42,7 +42,7 @@
 	<span>Build par défaut :</span> {{myDevice.default_build_target}}<br> -->
 </div>
 
-<div ng-if="visibilityEvent">
+<div class="eventBlock" ng-if="visibilityEvent">
 	{{errorEvent}}
 	<ul class="collection">
 		<li ng-repeat='event in myDeviceEvent' class="collection-item">
@@ -57,7 +57,8 @@
 	<canvas id="line" class="chart chart-line" chart-data="data"
 	chart-labels="labels" chart-series="series" chart-options="options"
 	chart-dataset-override="datasetOverride" chart-click="onClick">
-	</canvas><br>
+	</canvas>
+	<br>
 	{{errorChart}}
 </div>
 

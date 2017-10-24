@@ -99,9 +99,10 @@ app.controller('myDevice.ctrl',function($scope, $routeParams,deviceFactory,devic
 	};
 
 	socket.on('Intensity',function(data){
-		// console.log(data.data);
+		$scope.errorChart = '';
+		// console.log(data);
 		var last_elem = $scope.labels[$scope.labels.length-1];
-		$scope.labels.push(last_elem + 5);
+		$scope.labels.push(last_elem + 30);
 		$scope.data.push(data.data);
 		$scope.$apply();
 	});
@@ -110,7 +111,7 @@ app.controller('myDevice.ctrl',function($scope, $routeParams,deviceFactory,devic
 	{
 		$scope.visibilityChart = !$scope.visibilityChart;
 
-		if($scope.labels[0] == '')
+		if(!$scope.labels[1])
 		{
 
 			$scope.errorChart = 'Pas de relever d\'intensité à afficher ';
