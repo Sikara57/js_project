@@ -121,7 +121,7 @@ app.put('/users/:id', function(req, res) {
 /* --------------------------------------------------------------------------------------- */
 
 
-particle.login({username:'sikara57@gmail.com',password:'zfgp64s3*'}).then(
+particle.login({username:'MAIL',password:'MDP'}).then(
     function(data){
         token = data.body.access_token;
         console.log('Access Granted !');
@@ -293,10 +293,10 @@ app.post('/boitier', function(req,res){
 
 var keys =
 {
-    consumer_key : 'hHlBiAOFrbQQp9tExo46Oo38R',
-    consumer_secret : 'WLLPgyyvROyqA4Q9wEmfjRvprRitQRfOUEulOgzJbmsgOZd8h8',
-    token : '16624254-v2JLajXsgcUtvf6GzVPGCo2Ti7HFl7UTROmNYFzxK',
-    token_secret : 'ZfqMtLmikoo2VAWy3k6f3GFcJPTgRJLtXiYEeeBbIBSQO'
+    consumer_key : '',
+    consumer_secret : '',
+    token : '',
+    token_secret : ''
 };
 
 
